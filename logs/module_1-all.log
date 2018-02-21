@@ -1,0 +1,7 @@
+2018-02-21 20:24:42,746 [] INFO b.l.module1 [http-nio-8080-exec-10] /protected/users/userlist:
+User Credentials: null
+User Authorities: [ROLE_ADMIN, ROLE_USER]
+User Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 13E13D5C05CE20CD3FE15EFFBABDAA31
+User: user1org.springframework.security.core.userdetails.User@6a68dc6: Username: user1; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN,ROLE_USER 
+2018-02-21 20:24:42,758 [] INFO b.l.module1 [http-nio-8080-exec-10] auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER")): true 
+2018-02-21 20:24:42,759 [] INFO b.l.module1 [http-nio-8080-exec-10] auth.getAuthorities().contains("ROLE_ADMIN")): false 
