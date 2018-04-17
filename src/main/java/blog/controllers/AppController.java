@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,12 +26,23 @@ public class AppController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Post> postList = postServiceImpl.findAll();
+//        List<Post> postList = postServiceImpl.findAll();
+        List<Post> postList = new ArrayList<>();
         modelAndView.addObject("postList", postList);
 
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public ModelAndView getIndex() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        List<Post> postList = postServiceImpl.findAll();
+//        modelAndView.addObject("postList", postList);
+//
+//        modelAndView.setViewName("index");
+//        return modelAndView;
+//    }
 
 
     // for 403 access denied page
