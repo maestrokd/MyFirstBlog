@@ -41,10 +41,13 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String confirmationUrl = event.getAppUrl() + "/userregistrationConfirm?token=" + token;
         String message = messageSource.getMessage("message.regSuccess", null, event.getLocale());
 
+        String domain = messageSource.getMessage("property.domain", null, event.getLocale());
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(recipientAddres);
         simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message + " \r\n " + "http://localhost:8080" + confirmationUrl);
+//        simpleMailMessage.setText(message + " \r\n " + "http://localhost:8080" + confirmationUrl);
+        simpleMailMessage.setText(message + " \r\n " + domain + confirmationUrl);
 //        simpleMailMessage.setText("http://localhost:8080" + confirmationUrl);
 
         javaMailSender.send(simpleMailMessage);
