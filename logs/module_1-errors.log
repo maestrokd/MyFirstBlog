@@ -1,5 +1,0 @@
-2018-02-18 22:56:31,260 [] ERROR b.l.module1 [http-nio-8080-exec-10] deleteUser 1 
-2018-02-18 22:56:31,264 [] ERROR b.l.module1 [http-nio-8080-exec-10] deleteUser 2 
-2018-02-18 22:56:31,264 [] ERROR b.l.module1 [http-nio-8080-exec-10] deleteUser 3 
-2018-02-18 22:56:31,345 [] ERROR b.l.module1 [http-nio-8080-exec-10] deleteUser 4 
-2018-02-18 22:56:31,419 [] ERROR b.l.module1 [http-nio-8080-exec-10] deleteUser 5 
