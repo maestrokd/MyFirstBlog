@@ -1,0 +1,31 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ],
+  "description": "ForPullRequestsOnGitHub",
+  "env": {
+    "JAVA_MAIL_PASSWORD": {
+      "required": true
+    },
+    "JAVA_MAIL_USERNAME": {
+      "required": true
+    },
+    "MY_TEST": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "MyFirstBlog",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
