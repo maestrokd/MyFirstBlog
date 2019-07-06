@@ -2,24 +2,15 @@
 -- auto-generated definition
 create sequence hibernate_sequence;
 
-alter sequence hibernate_sequence
-  owner to "user";
 
-
-create table if not exists roles
-(
+create table if not exists roles(
 	id serial not null
 		constraint roles_pkey
 			primary key,
 	name varchar(50)
-)
-;
+);
 
-alter table roles owner to "user"
-;
-
-create table if not exists users
-(
+create table if not exists users(
 	id serial not null
 		constraint users_pkey
 			primary key,
@@ -28,14 +19,9 @@ create table if not exists users
 	login varchar(255),
 	name varchar(255),
 	password varchar(255)
-)
-;
+);
 
-alter table users owner to "user"
-;
-
-create table if not exists posts
-(
+create table if not exists posts(
 	id serial not null
 		constraint posts_pkey
 			primary key,
@@ -45,14 +31,9 @@ create table if not exists posts
 	user_id integer
 		constraint fk_users_posts
 			references users
-)
-;
+);
 
-alter table posts owner to "user"
-;
-
-create table if not exists users_roles
-(
+create table if not exists users_roles(
 	user_id integer not null
 		constraint fk2o0jvgh89lemvvo17cbqvdxaa
 			references users,
@@ -61,14 +42,9 @@ create table if not exists users_roles
 			references roles,
 	constraint users_roles_pkey
 		primary key (user_id, role_id)
-)
-;
+);
 
-alter table users_roles owner to "user"
-;
-
-create table if not exists verification_token
-(
+create table if not exists verification_token(
 	id bigint not null
 		constraint verification_token_pkey
 			primary key,
@@ -77,9 +53,4 @@ create table if not exists verification_token
 	user_id integer not null
 		constraint fk3asw9wnv76uxu3kr1ekq4i1ld
 			references users
-)
-;
-
-alter table verification_token owner to "user"
-;
-
+);
