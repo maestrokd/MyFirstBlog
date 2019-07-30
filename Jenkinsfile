@@ -1,1 +1,1 @@
-buildPlugin()
+mvn clean package
