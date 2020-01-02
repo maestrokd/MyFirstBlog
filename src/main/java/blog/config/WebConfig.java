@@ -66,13 +66,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     // End For Message and Local
 
 
-    @Bean
+    /*@Bean
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
-    }
+    }*/
 
 
     // For Mail Sender

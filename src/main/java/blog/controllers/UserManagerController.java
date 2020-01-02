@@ -62,7 +62,7 @@ public class UserManagerController {
         Post post = new Post();
         modelAndView.addObject("selectedPost", post);
 
-        modelAndView.setViewName("all/users/userhome");
+        modelAndView.setViewName("user/userhome");
         return modelAndView;
     }
 
@@ -84,7 +84,7 @@ public class UserManagerController {
         Post post = new Post();
         modelAndView.addObject("selectedPost", post);
 
-        modelAndView.setViewName("all/users/userhome");
+        modelAndView.setViewName("user/userhome");
         return modelAndView;
     }
 
@@ -106,7 +106,7 @@ public class UserManagerController {
         }
 
         modelAndView.addObject("userList", userServiceImpl.findAll());
-        modelAndView.setViewName("protected/users/userlist");
+        modelAndView.setViewName("user/userlist");
         return modelAndView;
     }
 
@@ -121,12 +121,12 @@ public class UserManagerController {
         // If user has role ROLE_ADMIN
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            modelAndView.addObject("roleList", roleServiceImpl.findAll());
+            modelAndView.addObject("allRoleList", roleServiceImpl.findAll());
             System.out.println("Contoller.showUpdateUserForm roleServiceImpl.findAll() : " + roleServiceImpl.findAll());
         }
 
         modelAndView.addObject("updateUser", userServiceImpl.findUserByLogin(login));
-        modelAndView.setViewName("protected/users/userupdateform");
+        modelAndView.setViewName("user/userupdateform");
         return modelAndView;
     }
 
@@ -146,7 +146,7 @@ public class UserManagerController {
         userServiceImpl.updateRoles(login, user.getRoleList());
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("customMessage2", "User update was failed with ");
-            return new ModelAndView("redirect:/protected/users/userlist");
+            return new ModelAndView("redirect:/user/userlist");
         }
         redirectAttributes.addFlashAttribute("customMessage2", "User updated successfully ");
         ModelAndView modelAndView = new ModelAndView();

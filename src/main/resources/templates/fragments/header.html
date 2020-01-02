@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:fragment="header-css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
+</head>
+<body>
+
+<div th:fragment="header-nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">My First Blog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/all/userhome">User's room</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/protected/users/userlist">User management
+                        panel</a>
+                    </li>
+                    <li ><a href="/charts">Charts</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
+                                th:text="#{property.button.language}"></span>
+                            <span class="caret"></span><span th:text="${#locale}"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?lang=en">English</a></li>
+                            <li><a href="?lang=ru">Russian</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAnonymous()"><a href="/userregistration">
+                        <span class="glyphicon glyphicon-user"></span><span
+                            th:text="#{property.button.sign}"></span></a>
+                    </li>
+                    <li sec:authorize="isAnonymous()"><a href="/newlogin">
+                        <span class="glyphicon glyphicon-log-in"></span><span th:text="#{property.button.login}"></span></a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()"><a href="#">Welcome : <span sec:authentication="name"></span></a>
+                    </li>
+                    <form sec:authorize="isAuthenticated()" action="/logout" id="logout" class="navbar-form navbar-left"
+                          method="post">
+                        <div class="input-group">
+                            <input
+                                    type="hidden"
+                                    th:name="${_csrf.parameterName}"
+                                    th:value="${_csrf.token}"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-link" type="submit"><span
+                                        class="glyphicon glyphicon-log-out"></span>
+                                    <span th:text="#{property.button.logout}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

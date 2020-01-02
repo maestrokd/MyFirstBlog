@@ -2,6 +2,7 @@ package blog.controllers;
 
 
 import blog.model.entity.Post;
+import blog.model.entity.User;
 import blog.model.service.*;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,9 @@ public class PostManagerController {
         ModelAndView modelAndView = new ModelAndView();
         Post selectedPost = postServiceImpl.findPostById(id);
         modelAndView.addObject("selectedPost", selectedPost);
-        modelAndView.setViewName("all/posts/postroom");
+        User userByLogin = userServiceImpl.findUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        modelAndView.addObject("selectedUser", userByLogin);
+        modelAndView.setViewName("post/postroom");
         return modelAndView;
     }
 
@@ -48,7 +51,7 @@ public class PostManagerController {
         ModelAndView modelAndView = new ModelAndView();
         Post updatedPost = postServiceImpl.findPostById(id);
         modelAndView.addObject("updatedPostForm", updatedPost);
-        modelAndView.setViewName("all/posts/postupdateform");
+        modelAndView.setViewName("post/postupdateform");
         return modelAndView;
     }
 
@@ -70,7 +73,7 @@ public class PostManagerController {
     }
 
 
-    @RequestMapping (value = "/all/posts/{id}/delete", method = RequestMethod.GET)
+    @RequestMapping (value = "/protected/posts/{id}/delete", method = RequestMethod.GET)
     public ModelAndView doDeletePost(
             @PathVariable("id")
                     int id
@@ -88,7 +91,7 @@ public class PostManagerController {
         Post addPost = new Post();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("postForm", addPost);
-        modelAndView.setViewName("all/posts/postaddform");
+        modelAndView.setViewName("post/postaddform");
         return modelAndView;
     }
 

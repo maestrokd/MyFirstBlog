@@ -40,7 +40,7 @@ public class RegistrationController {
         ModelAndView modelAndView = new ModelAndView();
         UserDto userDto = new UserDto();
         modelAndView.addObject("userDto", userDto);
-        modelAndView.setViewName("all/users/userregistrationform");
+        modelAndView.setViewName("user/userregistrationform");
         return modelAndView;
     }
 
@@ -55,7 +55,7 @@ public class RegistrationController {
             , Locale locale
     ) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("all/users/userregistrationform", "userDto", userDto);
+            return new ModelAndView("user/userregistrationform", "userDto", userDto);
         }
 
         User registeredUser = userServiceImpl.registerNewUserAccount(userDto);

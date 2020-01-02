@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Charts</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"></div>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3">
+        </div>
+
+        <div class="col-sm-9">
+            <h2 class="text-center">Charts page</h2>
+
+            <div id="chartContainer" style="width:100%; height: 400px"></div>
+            <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer3" style="width:100%; height: 400px"></div>
+        </div>
+    </div>
+</div>
+
+
+<script th:inline="javascript">
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: "CanvasJS Charts in Thymeleaf"
+        },
+        data:[{
+            type: "bar",
+            dataPoints: [
+                { x: 10, y: 71 },
+                { x: 20, y: 55 },
+                { x: 30, y: 50 },
+                { x: 40, y: 65 },
+                { x: 50, y: 71 },
+                { x: 60, y: 68 },
+                { x: 70, y: 38 },
+                { x: 80, y: 92, indexLabel: "Highest" },
+                { x: 90, y: 54 },
+                { x: 100, y: 60 },
+                { x: 110, y: 21 },
+                { x: 120, y: 49 },
+                { x: 130, y: 36 }
+            ]
+        }]
+    });
+    chart.render();
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    window.onload = function() {
+        var pontos = /*[[${pontos}]]*/ 'default';
+
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+            animationEnabled: true,
+            theme: "light2",
+            title:{
+                text: "Line Sample"
+            },
+            axisY:{
+                includeZero: true
+            },
+            data: [{
+                type: "column",
+                dataPoints: []
+            }]
+        });
+
+        /* Update dataPoints from AJAX and render the chart*/
+        chart2.options.data[0].dataPoints = pontos;
+        chart2.render();
+
+    }
+    /*]]>*/
+</script>
+
+<script th:inline="javascript">
+    var chart3 = new CanvasJS.Chart("chartContainer3", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: "CanvasJS Charts in Thymeleaf"
+        },
+        data:[{
+            type: "area",
+            dataPoints: [[${pontos}]]
+        }]
+    });
+    chart3.render();
+</script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

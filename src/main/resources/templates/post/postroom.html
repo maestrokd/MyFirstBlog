@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Post Room</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header-nav"></div>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9">
+                <th:block th:if="${message != null}">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong> <th:block th:text="${message}"/>.
+                    </div>
+                </th:block>
+
+                <hr/>
+                <h2><th:block th:text="${selectedPost.title}"/> <small>(id: <th:block th:text="${selectedPost.id}"/>)</small></h2>
+                <h5><span class="glyphicon glyphicon-time"></span> Post by <strong><th:block th:text="${selectedPost.user.login}"/></strong>, <th:block th:text="${selectedPost.date}"/>.</h5>
+                <p><th:block th:text="${selectedPost.body}"/></p>
+                <th:block sec:authorize="isAuthenticated()">
+                    <!--<button onclick="location.href='/all/posts/${selectedPost.id}/update'" class="btn btn-primary">Update</button>-->
+                    <a th:href="@{'/all/posts/' + ${selectedPost.id} + '/update'}" class="btn btn-primary">Update</a>
+                    <!--<button onclick="location.href='/all/posts/${selectedPost.id}/delete?login=${selectedPost.user.login}'" class="btn btn-danger">Delete</button>-->
+                    <a th:href="@{'/protected/posts/' + ${selectedPost.id} + '/delete?login=' + ${selectedPost.user.login}}" class="btn btn-danger">Delete</a>
+                </th:block>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

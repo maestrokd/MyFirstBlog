@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User List</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header-nav"></div>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9">
+                <div th:if="${not #lists.isEmpty(customMessage2)}">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div th:each="message: ${customMessage2}">
+                            <p th:text="${message}">...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${customMessage2 != null}">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong> <p th:text="${customMessage2}">...</p>
+                    </div>
+                </div>
+
+                <h2>List of Users:</h2>
+                <div th:if="${not #lists.isEmpty(userList)}">
+                    <table class="table table-striped" >
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Login</th>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th>Roles</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="listItem: ${userList}">
+                                <tr>
+                                    <td th:text="${listItem.id}"></td>
+                                    <td th:text="${listItem.login}"></td>
+                                    <td th:text="${listItem.name}"></td>
+                                    <td th:text="${listItem.email}"></td>
+                                    <td>
+                                        <div th:if="${not #lists.isEmpty(listItem.roleList)}" style="display: flex;">
+                                            <div th:each="listItem2: ${listItem.roleList}" style="padding: 0 1px 0 1px;">
+                                                <span class="label label-info" th:text="${listItem2.name}"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!--<button onclick="location.href='/protected/users/${listItem.login}'" class="btn btn-info">Info</button>-->
+                                        <a th:href="@{'/users/' + ${listItem.login} + '/update'}" class="btn btn-primary">Update</a>
+                                        <!--<button onclick="location.href='/users/${listItem.login}/delete'" class="btn btn-danger">Delete</button>-->
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
