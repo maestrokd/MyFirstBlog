@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Index</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"></div>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3">
+            <a href="/protected/users/userlist">Go to the all users page</a><br/>
+            <a href="userregistration">Registration</a><br/>
+            <a href="newlogin">Login</a><br/>
+            <a href="protected">Go to the protected page</a><br/>
+            <a href="confidential">Go to the confidential page</a><br/>
+        </div>
+
+        <div class="col-sm-9">
+            <h2 class="text-center">Welcome page</h2>
+            <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> | </span>
+
+            <div th:if="${not #lists.isEmpty(postList)}">
+                <div th:each="listItem: ${postList}">
+                    <hr/>
+                    <h2><th:block th:text="${listItem.title}"/>
+                        <small>(id: <th:block th:text="${listItem.id}"/>)</small>
+                    </h2>
+                    <h5><span class="glyphicon glyphicon-time"></span> Post by
+                        <strong><th:block th:text="${listItem.user.login}"/></strong>,
+                        <th:block th:text="${listItem.date}"/>.</h5>
+                    <p><th:block th:text="${listItem.body}"/></p>
+                    <a th:href="@{'/all/posts/' + ${listItem.id}}" class="btn btn-info">Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -26,8 +26,8 @@ public class AppController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex() {
         ModelAndView modelAndView = new ModelAndView();
-//        List<Post> postList = postServiceImpl.findAll();
-        List<Post> postList = new ArrayList<>();
+        List<Post> postList = postServiceImpl.findAll();
+//        List<Post> postList = new ArrayList<>();
         modelAndView.addObject("postList", postList);
 
         modelAndView.setViewName("index");

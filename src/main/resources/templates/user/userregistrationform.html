@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Registration</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header-nav"></div>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9">
+                <form class="form-horizontal" action="#" th:action="@{/userregistration}" method="post" th:object="${userDto}" >
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="login" th:text="#{property.enterYourLogin}"></label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="login" name="login" th:field="*{login}" placeholder="YourLogin" pattern="[A-Za-z0-9]{4,}" />
+                            <p th:errors="*{login}" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="control-label col-sm-3" for="password"><span th:text="#{property.enterYourPassword}"></span></label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="YourPassword" pattern="[A-Za-z0-9]{4,}" />
+                            <p th:errors="*{password}" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="name"><span th:text="#{property.enterYourName}"></span></label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="name" th:field="*{name}" placeholder="YourName" />
+                            <p th:errors="*{name}" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email"><span th:text="#{property.enterYourEmail}"></span></label>
+                        <div class="col-sm-4">
+                            <input id="email" th:field="*{email}" class="form-control" placeholder="YourEmail" />
+                            <p th:errors="*{email}" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-default" ><span th:text="#{property.button.sendToRegister}"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

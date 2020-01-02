@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User Home</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header-nav"></div>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9">
+                <th:block th:if="${selectedUser != null}">
+                    <p>Posts by <span th:text="${selectedUser.login}"></span> </p>
+                </th:block>
+                <th:block  th:if="${selectedUser == null}">
+                    <p>Posts by <span sec:authentication="name"></span> </p>
+                </th:block>
+
+                <sec:authorize access="hasRole('ROLE_USER')">
+
+                    <button onclick="location.href='/all/posts/add'" class="btn btn-primary">Add New Post</button>
+
+                </sec:authorize>
+
+                <th:block th:if="${not #lists.isEmpty(postList)}">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="listItem: ${postList}">
+                                <tr>
+                                    <td th:text="${listItem.id}"></td>
+                                    <td th:text="${listItem.title}"></td>
+                                    <td th:text="${listItem.date}"></td>
+                                    <td>
+                                        <!--<button onclick="location.href='/all/posts/${listItem.id}'" class="btn btn-info">Info</button>-->
+                                        <a th:href="@{'/all/posts/' + ${listItem.id}}" class="btn btn-info">Info</a>
+
+                                        <!--<a href="/customer/${listItem.phoneNumber}/update" class="button green">Update</a>-->
+                                        <!--<button onclick="location.href='/all/posts/${listItem.id}/update'" class="btn btn-primary">Update</button>-->
+                                        <a th:href="@{'/all/posts/' + ${listItem.id} + '/update'}" class="btn btn-primary">Update</a>
+
+                                        <!--<a href="/customer/${listItem.phoneNumber}/delete" class="button red">Delete</a>-->
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <th:block th:if="${selectedUser != null}">
+                                                <!--<button onclick="location.href='/protected/posts/${listItem.id}/delete?login=${selectedUser.login}'" class="btn btn-danger">Delete</button>-->
+                                                <a th:href="@{'/protected/posts/' + ${listItem.id} + '/delete?login=' + ${selectedUser.login}}" class="btn btn-danger">Delete</a>
+                                            </th:block>
+                                        </sec:authorize>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
